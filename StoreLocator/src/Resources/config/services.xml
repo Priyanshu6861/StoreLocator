@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="StoreLocator\StoreLocatorPlugin\Core\Content\Locator\StoreLocatorDefinition">
+            <tag name="shopware.entity.definition" entity="store_locator" />
+        </service>
+        <service id="StoreLocator\StoreLocatorPlugin\Core\Content\StoreMedia\StoreLocatorMediaDefinition">
+            <tag name="shopware.entity.definition" entity="store_locator_media" />
+        </service>
+        <service id="StoreLocator\StoreLocatorPlugin\Controller\StoreController" public="true">
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+            <call method="setTwig">
+                <argument type="service" id="twig"/>
+            </call>
+            <argument type="service" id="Shopware\Storefront\Page\GenericPageLoader"/>
+            <argument type="service" id="store_locator.repository"/>
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="country.repository"/>
+            <argument type="service" id="country_state.repository"/>
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService"/>
+            <argument type="service" id="store_locator_media.repository"/>
+            <argument type="service" id="cms_slot.repository"/>
+            <argument type="service" id="product_manufacturer.repository"/>
+            <argument type="service" id="payment_method.repository"/>
+        </service>
+        <service id="StoreLocator\StoreLocatorPlugin\Service\GoogleMapsCookieProvider" decorates="Shopware\Storefront\Framework\Cookie\CookieProviderInterface">
+            <argument type="service" id="StoreLocator\StoreLocatorPlugin\Service\GoogleMapsCookieProvider.inner" />
+        </service>
+    </services>
+</container>

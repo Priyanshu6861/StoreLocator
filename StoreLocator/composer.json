@@ -1,0 +1,36 @@
+{
+  "name": "storelocator/store-locator",
+  "description": "Professional Store Locator plugin for Shopware 6 with Google Maps integration",
+  "version": "1.0.0",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "keywords": ["shopware", "store locator", "google maps"],
+  "authors": [
+    {
+      "name": "Store Locator Team",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "StoreLocator\\": "src/"
+    }
+  },
+  "require": {
+    "shopware/core": "^6.5.0",
+    "shopware/administration": "^6.5.0",
+    "shopware/storefront": "^6.5.0"
+  },
+  "extra": {
+    "shopware-plugin-class": "StoreLocator\\StoreLocatorPlugin",
+    "plugin-icon": "src/Resources/config/plugin.png",
+    "label": {
+      "en-GB": "Store Locator",
+      "de-DE": "Filialsuche"
+    },
+    "description": {
+      "en-GB": "Professional Store Locator for Shopware 6 with Google Maps integration and advanced location management",
+      "de-DE": "Professionelle Filialsuche für Shopware 6 mit Google Maps Integration und erweiterter Standortverwaltung"
+    }
+  }
+}

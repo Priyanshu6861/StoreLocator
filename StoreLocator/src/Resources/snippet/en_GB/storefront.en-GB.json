@@ -1,0 +1,35 @@
+{
+  "storelocator": {
+    "title": "Store Locator",
+    "search": {
+      "placeholder": "Current Location",
+      "button": "Locate Nearby",
+      "error": "Sorry, no locations were found."
+    },
+    "range": {
+      "placeholder": "Radius",
+      "label": "Radius (%unit%.)",
+      "error": "Validation Error: The range exceeds the maximum allowed value (%range% %unit%.)."
+    },
+    "time": "Work Time Today",
+    "close": "Closed",
+    "address": "Address",
+    "cookie": "Google Maps",
+    "error": {
+      "title": "Your browser seems to have cookies disabled for Google Maps.",
+      "action": "to enable cookies in your browser and refresh the page.",
+      "click": "Click here"
+    },
+    "detail": {
+      "direction": "Get Direction",
+      "parkingAvailable": "Parking Availability",
+      "atm": "ATM",
+      "newArrivals": "New Arrivals",
+      "brands": "Brands",
+      "brandsPlaceHolder": "Select Brands",
+      "paymentMethod" : "Payment Methods",
+      "paymentMethodPlaceHolder": "Select Available Payment Methods",
+      "description": "Description"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+// parent class storelocator-detail-edit
+
+.storelocator-detail-edit {
+    .sw-field--switch {
+        margin-top: 0px;
+    }
+    .custom_form_filed{
+        .sw-card-section {
+            display: flex;
+            flex-wrap: wrap;
+            column-gap: 20px;
+            > div {
+                flex: 0 0 calc((100% - 20px) / 2);
+            }
+            .sw-field--switch{
+                flex: 0 0 100%;
+            }
+        }
+    }
+    .working_hours{
+        h4 {
+            margin-bottom: 0px;
+        }
+        .working_hours_content{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            column-gap: 20px;
+            .sw-field.sw-block-field{
+                flex: 1;
+            }
+        }
+    }
+    .sw-product-media-form__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        grid-gap: 10px;
+        grid-auto-flow: dense;
+      }
+
+}
+@media screen and (max-width:767px) {
+    .storelocator-detail-edit {
+        .custom_form_filed{
+            .sw-card-section {
+                display: block;
+            }
+        }
+        .working_hours{
+            .working_hours_content{
+                display: block;
+            }
+        }
+    }
+}
+.sw-store-media-form__previews{
+    margin-top: 30px;
+}

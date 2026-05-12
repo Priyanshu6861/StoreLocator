@@ -1,0 +1,27 @@
+<template>
+	<sw-page v-if="allowView()">
+	  <template #smart-bar-actions>
+		<sw-button-process v-if="allowAddNew()" :is-loading="isLoading" :process-success="processSuccess" variant="primary" @process-finish="saveFinish" @click="addNew">
+		  {{ $t('storelocator.buttons.new') }}
+		</sw-button-process>
+	  </template>
+	  <template #content>
+		<sw-entity-listing v-if="storeLocatorCollection" :items="storeLocatorCollection" :repository="repository" :show-selection="true" :columns="columns">
+		  <template #more-actions="{ item }">
+			<sw-context-menu-item v-if="allowEdit()" class="storelocator-list-grid__edit-action" @click="editItem(item)">
+			  {{ $t('storelocator.buttons.edit') }}
+			</sw-context-menu-item>
+		  </template>
+		  <template #column-title="{ item }">
+			<sw-media-preview-v2 v-if="item.logo" class="sw-media-upload-v2__preview" :source="item.logo" />
+			<span>{{ item.title }}</span>
+		  </template>
+		  <template #column-active="{ item }">
+			<sw-icon color="#1abc9c" v-if="item.active" name="regular-checkmark-xs" small class="is--active" />
+			<sw-icon color="#fc427b" v-else name="regular-times-s" small class="is--inactive" />
+		  </template>
+		</sw-entity-listing>
+	  </template>
+	</sw-page>
+  </template>
+  

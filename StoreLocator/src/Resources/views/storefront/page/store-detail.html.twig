@@ -1,0 +1,198 @@
+{% sw_extends "@Storefront/storefront/base.html.twig" %}
+{% block base_head %}
+    {% sw_include '@Storefront/storefront/layout/header/store-meta.html.twig' %}
+{% endblock %}
+{% block base_content %}
+    {% if cookie %}
+        <div class="store_cookie_error">
+            <h3 class="page-title">
+                <span class="title">
+                    {{ "storelocator.error.title"|trans|sw_sanitize }}
+                </span>
+            </h3>
+            <div class="store_cookie_error_action">
+                <span class="js-cookie-configuration-button">
+                    <button class="btn btn-link cookie_error_action">
+                        {{ "storelocator.error.click"|trans|sw_sanitize }}
+                    </button>
+                    {{ "storelocator.error.action"|trans|sw_sanitize }}
+                </span>
+            </div>
+        </div>
+    {% else %}
+        <template data-storeLocatorDetail></template>
+        <h1>
+            {{ store.title }}
+        </h1>
+        {% block store_locator_map %}
+            <div class="store_locator_main">
+                <div class="store_locator_list">
+                    <div class="store-detail">
+                        <div class="store-info">
+                            <p>
+                                <strong>
+                                    {{ "address.zipcodeLabel"|trans|sw_sanitize }}
+                                    :
+                                </strong>
+                                {{ store.postalCode }}
+                            </p>
+                            <p>
+                                <strong>
+                                    {{ "address.countryLabel"|trans|sw_sanitize }}
+                                    :
+                                </strong>
+                                {{ storeCountry }}
+                            </p>
+                            <p>
+                                <strong>
+                                    {{ "address.countryStateLabel"|trans|sw_sanitize }}
+                                    :
+                                </strong>
+                                {{ storeState }}
+                            </p>
+                            <p>
+                                <strong>
+                                    {{ "address.cityLabel"|trans|sw_sanitize }}
+                                    :
+                                </strong>
+                                {{ store.city }}
+                            </p>
+                            <p>
+                                <strong>
+                                    {{ "storelocator.address"|trans|sw_sanitize }}
+                                    :
+                                </strong>
+                                <span class="highlight">
+                                    {{ store.address }}
+                                </span>
+                            </p>
+
+                            <div class="contact-info">
+                                {% if store.url %}
+                                    <p>
+                                        <span class="me-1">
+                                            {% sw_icon 'globe' %}
+                                        </span>
+                                        <a href="{{ store.url }}" target="_blank">
+                                            {{ store.url }}
+                                        </a>
+                                    </p>
+                                {% endif %}
+                                {% if store.number %}
+                                    <p>
+                                        <span class="me-1">
+                                            {% sw_icon 'phone' %}
+                                        </span>
+                                        <a href="tel:{{ store.number }}">
+                                            {{ store.number }}
+                                        </a>
+                                    </p>
+                                {% endif %}
+                                {% if store.email %}
+                                    <p>
+                                        <span class="me-1">
+                                            {% sw_icon 'envelope' %}
+                                        </span>
+                                        <a href="mailto:{{ store.email }}">
+                                            {{ store.email }}
+                                        </a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <span class="me-1">
+                                    {% sw_icon 'location-arrow' %}
+                                </span>
+                                <a href="https://www.google.com/maps/dir/?api=1&destination={{ store.latitude }},{{ store.longitude }}" target="_blank">
+                                    {{ "storelocator.detail.direction"|trans|sw_sanitize }}
+                                </a>
+                            </div>
+
+                            <!-- Working Hours Section -->
+                            <div class="working-hours">
+                                <p>
+                                    <span class="watch_icon">
+                                        {% sw_icon 'clock' %}
+                                    </span>
+                                    <strong>
+                                        {{ "Work Time Today"|trans }}
+                                        :
+                                    </strong>
+                                    {% set todayLowercase = "now"|date("l")|lower %}
+                                    {% set todaysWorkingHours = workingHours[todayLowercase] %}
+                                    {{ todaysWorkingHours.start|date("g:i A") }}
+                                    -
+                                    {{ todaysWorkingHours.end|date("g:i A") }}
+                                    <i class="arrow"></i>
+                                </p>
+
+                                <div class="" id="working-hours">
+                                    {% for day, data in workingHours %}
+                                        <p>
+                                            <strong>
+                                                {{ day|capitalize }}
+                                                :
+                                            </strong>
+                                            {% if data.start and data.end %}
+                                                {{ data.start|date("g:i A") }}
+                                                -
+                                                {{ data.end|date("g:i A") }}
+                                            {% else %}
+                                                Closed
+                                            {% endif %}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="store-image">
+                        {% block block_gallery_buybox_column_left_inner %}
+                            {% sw_include '@Storefront/storefront/element/cms-element-image-slider.html.twig' ignore missing
+                        with {
+                        isProduct: config.sliderItems.value == 'storeMedia.media' and config.sliderItems.source == 'mapped',
+                        startIndexThumbnails: 1,
+                        startIndexSlider: 1
+                    } %}
+                        {% endblock %}
+                    </div>
+                </div>
+                <div id="store_locator_map" lat="{{ store.latitude }}" store-title="{{ store.title }}" lng="{{ store.longitude }}" zoom="{{ config('StoreLocatorPlugin.config.zoom') }}" class="store_locator_map" data-key="{{ config('StoreLocatorPlugin.config.token') }}"></div>
+            </div>
+        {% endblock %}
+        <div class="store_detail">
+            <div classs="store_detail_config">
+                <div class="store-info">
+                    <p><strong>{{ "storelocator.detail.parkingAvailable"|trans|sw_sanitize }}:</strong> <span class="badge">{% if store.parkingAvailable %} Yes {% else %} No {% endif %}</span></p>
+                    <p><strong>{{ "storelocator.detail.atm"|trans|sw_sanitize }}:</strong> <span class="badge">{% if store.atm %} Yes {% else %} No {% endif %}</span></p>
+                    {% if store.newArrivals %}
+                        <p><strong>{{ "storelocator.detail.newArrivals"|trans|sw_sanitize }}:</strong> 
+                            {% for day in store.newArrivals %}
+                            <span class="badge">{{day}}</span>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                    {% if storeBrands %}
+                        <p><strong>{{ "storelocator.detail.brands"|trans|sw_sanitize }}:</strong></p>
+                        <div class="brands">
+                            {% for brand in storeBrands %}
+                                <span class="badge">{{ brand }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if storePaymentMethod %}
+                        <p><strong>{{ "storelocator.detail.paymentMethod"|trans|sw_sanitize }}:</strong></p>
+                        <div class="payment-methods">
+                            {% for method in storePaymentMethod %}
+                                <span class="badge">{{ method }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="store_detail_description mt-5">
+                {{ store.description | raw }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{
+  "storelocator": {
+    "title": "Händlersuche",
+    "search": {
+      "placeholder": "Aktueller Standort",
+      "button": "Suchen Sie in der Nähe",
+      "error": "Entschuldigung, es wurden keine Standorte gefunden."
+    },
+    "range": {
+      "placeholder": "Radius",
+      "label": "Radius (%unit%.)",
+      "error": "Validierungsfehler: Der Bereich überschreitet den maximal zulässigen Wert (%range% %unit%.)."
+    },
+    "time": "Arbeitszeit heute",
+    "close": "Geschlossen",
+    "address":"Adresse",
+    "cookie":"Google Maps",
+    "error": {
+      "title": "Ihr Browser scheint Cookies für Google Maps deaktiviert zu haben.",
+      "action": "um Cookies in Ihrem Browser zu aktivieren und die Seite zu aktualisieren.",
+      "click": "klicken Sie hier"
+    },
+    "detail": {
+      "direction": "Richtung bekommen",
+      "parkingAvailable": "Parkverfügbarkeit",
+      "atm": "ATM",
+      "newArrivals": "Neuankömmlinge",
+      "brands": "Marken",
+      "brandsPlaceHolder": "Marken auswählen",
+      "paymentMethod" : "Zahlungsmethoden",
+      "paymentMethodPlaceHolder": "Wählen Sie die verfügbaren Zahlungsmethoden aus",
+      "description": "Beschreibung"
+
+    }
+  }
+}

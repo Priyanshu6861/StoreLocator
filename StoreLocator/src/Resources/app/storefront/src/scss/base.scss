@@ -1,0 +1,683 @@
+.store_cookie_error {
+  max-width: 960px;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid;
+  margin: 50px auto;
+  .page-title {
+    font-size: 30px;
+  }
+  .js-cookie-configuration-button{
+    font-size: 16px;
+    button{
+      padding: 0;
+      line-height: inherit;
+      font-size: inherit;
+    } 
+  } 
+}
+.store_locator_title {
+  .page-title{
+    margin-bottom: 20px;
+  }
+}
+.store_locator_main {
+  display: flex;
+  gap: 30px;
+  align-items: start;
+  .store_locator_list{
+    max-width: 30%;
+    width: 100%;
+    .store_locator_search{
+      .input-group.rounded {
+        margin-bottom: 15px;
+        flex-wrap: nowrap;
+        border: 1px solid #798490;
+        input {
+          border: 0px;
+          height: 40px;
+          padding: 5px 20px;
+        }
+        span {
+          background: transparent;
+          .icon{
+            margin-top: -6px;
+          }
+        }
+      }
+      .store_search_range_label{
+        margin-bottom: 3px;
+        display: inline-block;
+        font-weight: 600;
+      }
+      .input-group.multi_input_group {
+        align-items: end;
+        margin-bottom: 20px;
+        column-gap: 15px;
+        .store_search_range{
+          max-width: 100px;
+          input {
+            width: 100%;
+            height: 40px;
+            padding: 5px 10px;
+            outline: none;
+            box-shadow: none;
+          }
+        }
+        .store_search__button{
+          flex: 1;
+        }
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      button {
+        font-size: 16px;
+        font-weight: 500;
+        max-width: 100%;
+        width: 100%;
+        height: 40px;
+        background: transparent;
+        color: #0b539b;
+        border: 1px solid #0b539b;
+        &:hover{
+          background-color: #0b539b;
+          color: #fff;
+        }
+      }
+    }
+    .store_locator_stores {
+      max-height: 600px;
+      overflow: auto;
+      margin-bottom: 15px;
+    }
+    .store_locator_content{
+      background: #f6f6f6;
+      margin-bottom: 15px;
+      .store_locator_info{
+        display: flex;
+        align-items: start;
+        column-gap: 15px;
+        padding: 15px;
+      }
+      .store_locator_schedule {
+        p {
+          margin-bottom: 0px;
+          padding: 5px 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          span.day_title {
+            font-weight: 700;
+            position: relative;
+            padding-left: 20px;
+            .watch_icon{
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 0;
+            }
+            svg {
+              width: 14px;
+              height: 14px;
+              fill: #1979c3;
+            }
+          }
+          .timer {
+            position: relative;
+            padding-right: 30px;
+            .arrow_dropup,
+            .arrow_dropdown {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 0;
+              .icon {
+                justify-content: end;
+              }
+              svg {
+                width: 14px;
+
+              }
+            }
+            .arrow_dropup{
+              display: block;
+            }
+            .arrow_dropdown {
+              display: none;
+            }
+          }
+        }
+        .store_locator_schedule_today {
+          background-color: #dfdfdf;
+          &.hidden{
+            .timer{
+              .arrow_dropup{
+                display: none;
+              }
+              .arrow_dropdown {
+                display: block;
+              }
+            }
+            + .store_locator_schedule_all{
+              display: none;
+            } 
+          } 
+          p {
+            span {
+              color: #000;
+            }
+          }
+        }
+      }
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      &.active {
+        background-color: #1979c3;
+        .store_locator_details {
+          .store_address,
+          .store_title {
+            color: #fff;
+          }
+          span {
+            color: #fff;
+          }
+          .store_url {
+            a::before{
+              background-color: #fff;
+            }
+          }
+        }
+        .store_locator_schedule {
+          p {
+            color: #fff;
+          }
+          .store_locator_schedule_today {
+            background-color: #9dd4ff;
+          }
+        }
+      }
+      .store_locator_icon{
+        flex: 0 0 35%;
+        position: relative;
+        padding-top: 35%;
+        overflow: hidden;
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: auto;
+          width: 100%;
+          max-width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .store_locator_pagination{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      .store_locator_page{
+        display: inline-block;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        background-color: transparent;
+        border: 1px solid #0b539b;
+        color: #0b539b;
+        padding: 6px;
+        font-weight: 700;
+        cursor: pointer;
+        &.active {
+          color: #fff;
+          background-color: #0b539b;
+          cursor: auto;
+        }
+      }
+    }
+  }
+  .store_locator_details{
+    flex: 1;
+    span{
+      display: block;
+    }
+    .store_title{
+      font-size: 20px;
+      line-height: 25px;
+      margin: 0px;
+      text-transform: capitalize;
+    }
+    .store_url {
+      a{
+        display: inline-block;
+        outline: 0;
+        position: relative;
+        text-decoration: none;
+        &::before {
+          content: "";
+          height: 2px;
+          width: 0px;
+          background-color: #2b3136;
+          position: absolute;
+          bottom: 0;
+          left: 0px;
+          transition: width 0.4s;
+        }
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+    .store_address {
+      margin-top: 10px;
+      display: block;
+    }
+  }
+  .store_locator_map {
+    flex: 1;
+    aspect-ratio: 1/1;
+    .store_locator_icon{
+      max-width: 150px;
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+.store_locator_main_detail {
+  display: flex;
+  gap: 30px;
+  align-items: start;
+  .store_locator_list{
+    max-width: 30%;
+    width: 100%;
+    .store_locator_search{
+      .input-group.rounded {
+        margin-bottom: 15px;
+        flex-wrap: nowrap;
+        border: 1px solid #798490;
+        input {
+          border: 0px;
+          height: 40px;
+          padding: 5px 20px;
+        }
+        span {
+          background: transparent;
+          .icon{
+            margin-top: -6px;
+          }
+        }
+      }
+      .store_search_range_label{
+        margin-bottom: 3px;
+        display: inline-block;
+        font-weight: 600;
+      }
+      .input-group.multi_input_group {
+        align-items: end;
+        margin-bottom: 20px;
+        column-gap: 15px;
+        .store_search_range{
+          max-width: 100px;
+          input {
+            width: 100%;
+            height: 40px;
+            padding: 5px 10px;
+            outline: none;
+            box-shadow: none;
+          }
+        }
+        .store_search__button{
+          flex: 1;
+        }
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      button {
+        font-size: 16px;
+        font-weight: 500;
+        max-width: 100%;
+        width: 100%;
+        height: 40px;
+        background: transparent;
+        color: #0b539b;
+        border: 1px solid #0b539b;
+        &:hover{
+          background-color: #0b539b;
+          color: #fff;
+        }
+      }
+    }
+    .store_locator_stores {
+      max-height: 600px;
+      overflow: auto;
+      margin-bottom: 15px;
+    }
+    .store_locator_content{
+      background: #f6f6f6;
+      margin-bottom: 15px;
+      .store_locator_info{
+        display: flex;
+        align-items: start;
+        column-gap: 15px;
+        padding: 15px;
+      }
+      .store_locator_schedule {
+        p {
+          margin-bottom: 0px;
+          padding: 5px 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: pointer;
+          span.day_title {
+            font-weight: 700;
+            position: relative;
+            padding-left: 20px;
+            .watch_icon{
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 0;
+            }
+            svg {
+              width: 14px;
+              height: 14px;
+              fill: #1979c3;
+            }
+          }
+          .timer {
+            position: relative;
+            padding-right: 30px;
+            .arrow_dropup,
+            .arrow_dropdown {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 0;
+              .icon {
+                justify-content: end;
+              }
+              svg {
+                width: 14px;
+
+              }
+            }
+            .arrow_dropup{
+              display: block;
+            }
+            .arrow_dropdown {
+              display: none;
+            }
+          }
+        }
+        .store_locator_schedule_today {
+          background-color: #dfdfdf;
+          &.hidden{
+            .timer{
+              .arrow_dropup{
+                display: none;
+              }
+              .arrow_dropdown {
+                display: block;
+              }
+            }
+            + .store_locator_schedule_all{
+              display: none;
+            } 
+          } 
+          p {
+            span {
+              color: #000;
+            }
+          }
+        }
+      }
+      &:last-child {
+        margin-bottom: 0px;
+      }
+      &.active {
+        background-color: #1979c3;
+        .store_locator_details {
+          .store_address,
+          .store_title {
+            color: #fff;
+          }
+          span {
+            color: #fff;
+          }
+          .store_url {
+            a::before{
+              background-color: #fff;
+            }
+          }
+        }
+        .store_locator_schedule {
+          p {
+            color: #fff;
+          }
+          .store_locator_schedule_today {
+            background-color: #9dd4ff;
+          }
+        }
+      }
+      .store_locator_icon{
+        flex: 0 0 35%;
+        position: relative;
+        padding-top: 35%;
+        overflow: hidden;
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: auto;
+          width: 100%;
+          max-width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    .store_locator_pagination{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      .store_locator_page{
+        display: inline-block;
+        height: 35px;
+        width: 35px;
+        text-align: center;
+        background-color: transparent;
+        border: 1px solid #0b539b;
+        color: #0b539b;
+        padding: 6px;
+        font-weight: 700;
+        cursor: pointer;
+        &.active {
+          color: #fff;
+          background-color: #0b539b;
+          cursor: auto;
+        }
+      }
+    }
+  }
+  .store_locator_details{
+    flex: 1;
+    span{
+      display: block;
+    }
+    .store_title{
+      font-size: 20px;
+      line-height: 25px;
+      margin: 0px;
+      text-transform: capitalize;
+    }
+    .store_url {
+      a{
+        display: inline-block;
+        outline: 0;
+        position: relative;
+        text-decoration: none;
+        &::before {
+          content: "";
+          height: 2px;
+          width: 0px;
+          background-color: #2b3136;
+          position: absolute;
+          bottom: 0;
+          left: 0px;
+          transition: width 0.4s;
+        }
+        &:hover::before {
+          width: 100%;
+        }
+      }
+    }
+    .store_address {
+      margin-top: 10px;
+      display: block;
+    }
+  }
+  .store_locator_map {
+    flex: 1;
+    aspect-ratio: 1/1;
+    .store_locator_icon{
+      max-width: 150px;
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .store_locator_main .store_locator_list {
+    max-width: 350px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .store_locator_main{
+    column-gap: 15px;
+    .store_locator_list {
+      max-width: 300px;
+      .store_locator_content {
+        padding: 10px;
+        column-gap: 10px;
+      }
+    } 
+  }
+}
+@media screen and (max-width: 767px) {
+  .store_locator_main {
+    flex-direction: column-reverse;
+    .store_locator_map {
+      width: 100%;
+      max-height: 350px;
+    }
+    .store_locator_list {
+      max-width: 100%;
+      .store_locator_content .store_locator_icon {
+        max-width: 150px;
+      }
+    }
+  }
+  .store_cookie_error { 
+    margin: 20px auto;
+    .page-title {
+      font-size: 22px;
+    }
+  }
+}
+
+.store-detail {
+  max-width: 500px;
+  margin: auto;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.store-info p {
+  margin: 5px 0;
+}
+
+.highlight {
+  font-weight: bold;
+}
+
+.contact-info p {
+  display: flex;
+  align-items: center;
+}
+
+.contact-info i {
+  margin-right: 5px;
+}
+
+.working-hours {
+  margin-top: 10px;
+}
+
+.toggle-hours {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.all-hours {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.arrow {
+  transform: rotate(90deg);
+  transition: transform 0.3s;
+}
+
+.open .arrow {
+  transform: rotate(-90deg);
+}
+
+.badge {
+  display: inline-block;
+  background-color: #f5f5f5;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 5px;
+  font-weight: normal;
+  color: black;
+}

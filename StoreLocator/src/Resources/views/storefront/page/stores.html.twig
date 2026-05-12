@@ -1,0 +1,183 @@
+{% sw_extends "@Storefront/storefront/base.html.twig" %}
+{% block base_head %}
+	{% sw_include '@Storefront/storefront/layout/header/store-meta.html.twig' %}
+{% endblock %}
+{% block base_content %}
+	{% if cookie %}
+		<div class="store_cookie_error">
+			<h3 class="page-title">
+				<span class="title">{{ "storelocator.error.title"|trans|sw_sanitize }}</span>
+			</h3>
+			<div class="store_cookie_error_action">
+				<span class="js-cookie-configuration-button">
+					<button class="btn btn-link cookie_error_action">{{ "storelocator.error.click"|trans|sw_sanitize }}</button>
+					{{ "storelocator.error.action"|trans|sw_sanitize }}
+				</span>
+			</div>
+		</div>
+	{% else %}
+		<template data-storelocator></template>
+		{% block store_locator_title%}
+			<div class="store_locator_title">
+				<h1 class="page-title">
+					<span class="title">{{ "storelocator.title"|trans|sw_sanitize }}</span>
+				</h1>
+			</div>
+		{% endblock %}
+		{% block store_locator_main%}
+			<div class="store_locator_main">
+				{% block store_locator_list%}
+					<div class="store_locator_list">
+						<div class="store_locator_search">
+							<div class="input-group rounded">
+								<input name="store_search" id="store_search" type="search" class="form-control rounded" placeholder="{{ "storelocator.search.placeholder"|trans|sw_sanitize }}" aria-label="Search" aria-describedby="search-addon"/>
+								<span class="input-group-text border-0" id="store_locator_search-addon">
+									{% sw_icon 'search' style {'pack':'solid'} %}
+								</span>
+							</div>
+							<div class="input-group multi_input_group">
+								<div class="store_search_range">
+									{% set unit = config('StoreLocatorPlugin.config.unit') %}
+									{% set max = unit == 'mi' ? 500 : 1000 %}
+
+									<span class="store_search_range_label">{{ "storelocator.range.label"|trans({'%unit%': unit})|sw_sanitize }}</span>
+									<input class="store_search_range_input" placeholder="{{ "storelocator.range.placeholder"|trans|sw_sanitize }}" type="number" unit={{unit}} min="1" max="{{max}}" name="store_search_range" id="store_search_range"/>
+								</div>
+								<div class="store_search__button">
+									<button data-url="{{ url('frontend.storelocator.stores.search') }}" name="store_search_button" id="store_search_button">{{ "storelocator.search.button"|trans|sw_sanitize }}</button>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" value="config('StoreLocatorPlugin.config.detailPage')" id="store_detail_enable"> 
+						<input type="hidden" value="{{path('frontend.storelocator.store.detail')}}" id="store_detail_path"> 
+						<div id="store_locator_stores" class="store_locator_stores">
+							{% for store in stores.elements %}
+								<div {% if loop.first %} class="store_locator_content active" {% else %} class="store_locator_content" {% endif %} data-lat="{{store.latitude}}" data-lng="{{store.longitude}}" data-zoom="{{config('StoreLocatorPlugin.config.zoom')}}">
+									<div class="store_locator_info">
+										{% if store.logo %}
+											<div class="store_locator_icon">
+												<img src="{{media[store.logo]}}" alt="{{store.title}}" width="100" height="100"/>
+											</div>
+										{% endif %}
+										<div class="store_locator_details">
+											{% if config('StoreLocatorPlugin.config.detailPage') === "no"%}
+												{% if store.url %}
+													<div class="store_url">
+														<a href="{{ store.url }}" target="_blank" rel="noopener">
+															<h2 class="store_title">{{store.title}}</h2>
+														</a>
+													</div>
+												{% else %}
+													<h2 class="store_title">{{store.title}}</h2>
+												{% endif %}
+											{% else %}
+												<div class="store_url">
+													<form id="storeForm_{{ store.id }}" action="{{ path('frontend.storelocator.store.detail') }}" method="post">
+														<input type="hidden" name="id" value="{{ store.id }}">
+													</form>
+													<a href="#" onclick="document.getElementById('storeForm_{{ store.id }}').submit(); return false;">
+														<h2 class="store_title">{{ store.title }}</h2>
+													</a>
+												</div>
+											{% endif %}
+
+											<span class="store_address">{{ "storelocator.address"|trans|sw_sanitize }}:
+												{{store.address}}</span>
+											<span class="store_city">{{ "address.cityLabel"|trans|sw_sanitize }}:
+												{{store.city}}</span>
+											{% if store.state %}
+												<span class="store_state">{{ "address.countryStateLabel"|trans|sw_sanitize }}:
+													{{states[store.state]}}</span>
+											{% endif %}
+											<span class="store_zip">{{ "address.zipcodeLabel"|trans|sw_sanitize }}:
+												{{store.postalCode}}</span>
+											<span class="store_country">{{ "address.countryLabel"|trans|sw_sanitize }}:
+												{{countries[store.country]}}</span>
+											{% if store.email %}
+												<span class="store_email">{{ "account.profileMailTitle"|trans|sw_sanitize }}:
+													{{store.email}}</span>
+											{% endif %}
+											{% if store.number %}
+												<span class="store_number">{{ "address.phoneNumberLabel"|trans|sw_sanitize }}:
+													{{store.number}}</span>
+											{% endif %}
+											{# <div>
+												<a href="https://www.google.com/maps/dir/?api=1&destination={{store.latitude}},{{store.longitude}}" target="_blank">📍 Get Directions</a>
+											</div>
+											<div>
+												<a href="https://m.uber.com/go?dropoff_latitude={{store.latitude}}&dropoff_longitude={{store.longitude}}" target="_blank">Get an Uber</a>
+											</div> #}
+										</div>
+									</div>
+									<div class="store_locator_schedule">
+										<div class="store_locator_schedule_today hidden">
+											<p>
+												{% set todayLowercase = "now"|date("l")|lower %}
+												{% set todaysWorkingHours = workingHours[store.id][todayLowercase] %}
+												<span class="day_title">
+													<span class="watch_icon">
+														{% sw_icon 'clock' %}
+													</span>
+													{{ "storelocator.time"|trans|sw_sanitize }}:
+												</span>
+												<span class="timer">
+													{% if todaysWorkingHours.active %}
+														{{ todaysWorkingHours.start|date("g:i A") }}
+														-
+														{{ todaysWorkingHours.end|date("g:i A") }}
+													{% else %}
+														{{ "storelocator.close"|trans|sw_sanitize }}
+													{% endif %}
+													<span class="arrow_dropdown">
+														{% sw_icon 'arrow-head-down' %}
+													</span>
+													<span class="arrow_dropup">
+														{% sw_icon 'arrow-head-up' %}
+													</span>
+												</span>
+											</p>
+										</div>
+										<div class="store_locator_schedule_all">
+											{% for day, data in workingHours[store.id] %}
+												<p>
+													<span class="day_title">
+														{{ day|capitalize }}
+														:
+													</span>
+													<span class="timer">
+														{% if data.active %}
+															{{ data.start|date("g:i A") }}
+															-
+															{{ data.end|date("g:i A") }}
+														{% else %}
+															{{ "storelocator.close"|trans|sw_sanitize }}
+														{% endif %}
+													</span>
+												</p>
+											{% endfor %}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						{% if pageInfo.pages > 1 %}
+							<div id="store_locator_pagination" data-limit="{{pageInfo.limit}}" data-url="{{ url('frontend.storelocator.stores.ajax') }}" class="store_locator_pagination">
+								{% for i in 1..pageInfo.pages %}
+									{% if i == 1 %}
+										<span class="store_locator_page active">{{i}}</span>
+									{% else %}
+										<span class="store_locator_page">{{i}}</span>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endif %}
+					</div>
+				{% endblock %}
+
+				{% block store_locator_map%}
+					<div id="store_locator_map" class="store_locator_map" data-key="{{config('StoreLocatorPlugin.config.token')}}"></div>
+				{% endblock %}
+			</div>
+		{% endblock %}
+	{% endif %}
+{% endblock %}

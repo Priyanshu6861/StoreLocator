@@ -1,0 +1,178 @@
+<template>
+  <sw-page class="storelocator-detail-add">
+    <template #smart-bar-actions>
+      <sw-button @click="onCancel">
+        {{ $t('storelocator.buttons.cancel') }}
+      </sw-button>
+      <sw-button-process :is-loading="isLoading" :process-success="processSuccess" variant="primary" @process-finish="saveFinish" @click="onClickSave">
+        {{ $t('storelocator.buttons.save') }}
+      </sw-button-process>
+    </template>
+
+    <template #content>
+      <sw-card-view>
+        <sw-card :is-loading="isLoading">
+          <h3>
+            {{$t('storelocator.title.general')}}
+          </h3>
+          <div class="custom_form_filed">
+            <sw-card-section>
+              <sw-switch-field required :label="$t('storelocator.field.active')" v-model:value="active" />
+              <sw-text-field required :label="$t('storelocator.field.title')" v-model:value="title" />
+              <sw-url-field v-model:value="url" type="text" omit-url-hash omit-url-search :label="$tc('storelocator.field.url')" />
+              <sw-upload-listener :upload-tag="uploadTag" auto-upload @media-upload-finish="successfulUpload" />
+              <sw-media-upload-v2 :label="$t('storelocator.field.logo')" @media-upload-remove-image="onRemoveMediaItem" :source="logo" variant="regular" :file-accept="fileAccept" :allow-multi-select="false" :upload-tag="uploadTag" />
+            </sw-card-section>
+          </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+          <h3>
+            {{$t('storelocator.title.address')}}
+          </h3>
+          <div class="custom_form_filed">
+            <sw-card-section>
+              <sw-entity-single-select v-model:value="countryId" class="sw-customer-address-form__country-select" entity="country" :criteria="countryCriteria" :label="$tc('sw-customer.addressForm.labelCountry')" :placeholder="$tc('sw-customer.addressForm.placeholderCountry')" validation="required" required show-clearable-button />
+              <div v-if="countryId && states.length" class="sw-customer-address-form__state-select-placeholder">
+                <sw-entity-single-select v-model:value="stateId" class="sw-customer-address-form__state-select" entity="country_state" :criteria="stateCriteria" :label="$tc('sw-customer.addressForm.labelState')" :placeholder="$tc('sw-customer.addressForm.placeholderState')" required validation="required" show-clearable-button />
+              </div>
+              <sw-text-field v-model:value="city" :label="$tc('sw-customer.addressForm.labelCity')" :placeholder="$tc('sw-customer.addressForm.placeholderCity')" validation="required" required />
+              <sw-text-field required :label="$t('storelocator.field.address')" v-model:value="address" />
+              <sw-text-field v-model:value="zip" :label="$tc('sw-customer.addressForm.labelZipcode')" :placeholder="$tc('sw-customer.addressForm.placeholderZipcode')" validation="required" />
+              <sw-text-field required :label="$t('storelocator.field.latitude')" v-model:value="latitude" />
+              <sw-text-field required :label="$t('storelocator.field.longitude')" v-model:value="longitude" />
+            </sw-card-section>
+          </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+          <h3>
+            {{$t('storelocator.title.media')}}
+          </h3>
+          <div class="custom_form_filed">
+          <sw-upload-listener :upload-tag="uploadStoreImagesTag" auto-upload @media-upload-finish="successfulMultiUpload" />
+
+          <sw-media-upload-v2
+              variant="regular"
+              :upload-tag="uploadStoreImagesTag"
+              :scroll-target="$parent.$el"
+              :file-accept="fileAccept"
+              @media-upload-sidebar-open="onOpenMedia"
+              @media-upload-finish="successfulMultiUpload"
+              @media-upload-fail="handleUploadError"
+          />
+        {% block sw_product_media_form_grid %}
+        <div class="sw-product-media-form__previews">
+            <div
+                v-if="!isLoading"
+                class="sw-product-media-form__grid sw-product-media-form__column"
+                :style="gridAutoRows"
+            >
+                {%  block sw_product_media_form_grid_items %}
+                <sw-product-image
+                    v-for="mediaItem in storeMedia"
+                    :key="mediaItem.id"
+                    v-draggable="{ dragGroup: 'store-media', data: mediaItem, onDragEnter: onMediaItemDragSort }"
+                    v-droppable="{ dragGroup: 'store-media', data: mediaItem }"
+                    :media-id="mediaItem.id"
+                    @sw-product-image-delete="removeFile(mediaItem)"
+                    @media-open="onOpenMediaModal"
+                />
+                {% endblock %}
+            </div>
+            <sw-loader v-else />
+        </div>
+        {% endblock %}
+          </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+          <h3>{{$t('storelocator.detail.description')}}</h3>
+            <div class="custom_form_filed">
+              <sw-text-editor
+                  v-model:value="description"
+                  :allowInlineEdit="false"
+                  :isAutosize="true"
+                  :disableSync="true"
+              />
+            </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+            <div class="custom_form_filed">
+              <sw-switch-field :label="$tc('storelocator.detail.parkingAvailable')" v-model:value="parkingAvailable" />
+              <sw-switch-field :label="$tc('storelocator.detail.atm')" v-model:value="atm" />
+              <sw-multi-select
+              label-property="name"
+              value-property="name"
+				      :label="$tc('storelocator.detail.newArrivals')" 
+              :placeholder="$tc('storelocator.detail.newArrivals')"
+              :options="newArrivalsList"
+              :value="newArrivals"
+              @update:value="changeValue"
+            />
+            <sw-multi-select 
+              v-model:value="paymentMethods" 
+              :options="availablePaymentMethods" 
+              class="shopware_methods" 
+              :label="$tc('storelocator.detail.paymentMethod')" 
+              :placeholder="$tc('storelocator.detail.paymentMethodPlaceHolder')"
+            ></sw-multi-select>
+
+            <sw-multi-select 
+              v-model:value="brands" 
+              :options="availableManufacturers" 
+              class="shopware_methods" 
+              :label="$tc('storelocator.detail.brands')" 
+              :placeholder="$tc('storelocator.detail.brandsPlaceHolder')"
+            ></sw-multi-select>
+
+            </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+        <h3>{{$t('storelocator.title.contact')}}</h3>
+          <div class="custom_form_filed">
+            <sw-card-section>
+              <sw-text-field v-model:value="number" :label="$tc('sw-customer.addressForm.labelPhoneNumber')" :placeholder="$tc('sw-customer.addressForm.placeholderPhoneNumber')" />
+              <sw-email-field v-model:value="email" :label="$tc('sw-customer.baseForm.labelEmail')" :placeholder="$tc('sw-customer.baseForm.placeholderEmail')" />
+            </sw-card-section>
+          </div>
+        </sw-card>
+        <sw-card :is-loading="isLoading">
+          <h3>
+          {{$t('storelocator.title.workingHours')}}
+          </h3>
+          <sw-card-section>
+            <div class="working_hours" v-for="(day, dayKey) in schedule" :key="dayKey">
+              <h4>
+                {{ capitalizeFirstLetter(dayKey) }}
+              </h4>
+              <div class="working_hours_content">
+                <sw-switch-field :label="$t('storelocator.field.working')" v-model:value="day.active" />
+                <sw-datepicker v-if="day.active" validation="required" required :label="$t('storelocator.field.start')" v-model:value="day.start" date-type="time" />
+                <sw-datepicker v-if="day.active" validation="required" required :label="$t('storelocator.field.end')" v-model:value="day.end" date-type="time" />
+              </div>
+            </div>
+          </sw-card-section>
+        </sw-card>
+        <sw-card>
+          <h3>{{$t('sw-product.seoForm.labelMetaTitle')}}</h3>
+            <sw-text-field
+                v-model:value="metaTitle"
+                :placeholder="$tc('sw-product.seoForm.placeholderMetaTitle')"
+                :label="$tc('sw-product.seoForm.labelMetaTitle')" 
+                :help-text="$tc('sw-product.seoForm.helpTextMetaTitle')"
+            />
+            <sw-textarea-field
+                :placeholder="$tc('sw-product.seoForm.placeholderMetaDescription')"
+                :label="$tc('sw-product.seoForm.labelMetaDescription')"
+                v-model:value="metaDescription"
+                :help-text="$tc('sw-product.seoForm.helpTextMetaDescription')"
+            />
+            <sw-text-field
+                v-model:value="seoKeywords"
+                :placeholder="$tc('sw-product.seoForm.placeholderKeywords') "
+                :help-text="$tc('sw-product.seoForm.helpTextKeywords')"
+                :label="$tc('sw-product.seoForm.labelKeywords')" 
+            />
+        </sw-card>
+      </sw-card-view>
+    </template>
+  </sw-page>
+</template>

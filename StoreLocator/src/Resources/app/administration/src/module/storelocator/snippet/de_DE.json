@@ -1,0 +1,54 @@
+{
+  "storelocator": {
+    "menu" : "Händlersuche",
+    "title": {
+      "edit": "Shop bearbeiten",
+      "add": "Neue hinzufügen Shop",
+      "list": "Managen Shops",
+      "general": "General",
+      "address": "Adresse",
+      "contact": "Kontakt",
+      "workingHours": "Arbeitszeit",
+      "media": "Medien"
+    },
+    "field": {
+      "active": "Status",
+      "title": "Shop Titel",
+      "address": "Adresse",
+      "latitude": "Breitengrad",
+      "longitude": "Längengrad",
+      "url": "Shop Url",
+      "logo": "Shop Icon",
+      "store": "Shop",
+      "working":"Zeitplan",
+      "start":"Offene Zeit",
+      "end":"Schließzeit"
+    },
+    "message": {
+      "validation-error": "Bitte füllen Sie alle geforderten Felder aus.",
+      "validation-add-success": "Shop erfolgreich hinzugefügt",
+      "validation-update-success": "Shop erfolgreich aktualisiert",
+      "latitude-validation-error": "Der Breitengradbereich liegt zwischen -90 und 90",
+      "longitude-validation-error": "Der Längengradbereich reicht von -180 bis 179"
+    },
+    "buttons": {
+      "save": "Speichern",
+      "update": "Aktualisieren",
+      "cancel": "Stornieren",
+      "new": "Neue hinzufügen",
+      "edit": "Bearbeiten"
+    },
+    "detail": {
+      "direction": "Richtung bekommen",
+      "parkingAvailable": "Parkverfügbarkeit",
+      "atm": "ATM",
+      "newArrivals": "Neuankömmlinge",
+      "brands": "Marken",
+      "brandsPlaceHolder": "Marken auswählen",
+      "paymentMethod" : "Zahlungsmethoden",
+      "paymentMethodPlaceHolder": "Wählen Sie die verfügbaren Zahlungsmethoden aus",
+      "description": "Beschreibung"
+
+    }
+  }
+}

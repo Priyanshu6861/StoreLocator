@@ -1,0 +1,14 @@
+{% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
+
+{% block layout_header_actions_account %}
+	{% if config('StoreLocatorPlugin.config.header') == 'yes' %}
+		<div class="col-auto">
+			<div class="store-locator-menu">
+				<button onclick="window.location.href='{{ path('frontend.storelocator.stores') }}'" class="btn store-locator-menu-btn header-actions-btn">
+                    {% sw_icon 'marker' %}
+				</button>
+			</div>
+		</div>
+	{% endif %}
+	{{parent()}}
+{% endblock %}

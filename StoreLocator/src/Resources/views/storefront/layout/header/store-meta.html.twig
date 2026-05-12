@@ -1,0 +1,28 @@
+{% sw_extends '@Storefront/storefront/layout/meta.html.twig' %}
+
+{% block layout_head_javascript_router %}
+    {{ parent() }}
+    {% set unit = config('StoreLocatorPlugin.config.unit') %}
+	{% set max = unit == 'mi' ? 500 : 1000 %}
+    {% set rangeError = "storelocator.range.error"|trans({'%unit%': unit, '%range%': max}) %}
+    <script>
+		window.storelocator = {
+			'searchError': '{{ "storelocator.search.error"|trans|sw_sanitize }}',
+            'rangeError': '{{rangeError}}',
+            'cityLabel': '{{ "address.cityLabel"|trans|sw_sanitize }}',
+            'stateLabel': '{{ "address.countryStateLabel"|trans|sw_sanitize }}',
+            'zipcodeLabel': '{{ "address.zipcodeLabel"|trans|sw_sanitize }}',
+            'countryLabel': '{{ "address.countryLabel"|trans|sw_sanitize }}',
+            'mail': '{{ "account.profileMailTitle"|trans|sw_sanitize }}',
+            'number': '{{ "address.phoneNumberLabel"|trans|sw_sanitize }}',
+            'time': '{{ "storelocator.time"|trans|sw_sanitize }}',
+            'close':'{{ "storelocator.close"|trans|sw_sanitize }}',
+            'address':'{{ "storelocator.address"|trans|sw_sanitize }}'
+		}
+	</script>
+{% endblock %}
+{% block layout_head_meta_tags_keywords %}{% if store.seoKeywords %}{{store.seoKeywords}}{% else %}{{ metaKeywords }}{% endif %}{% endblock %}
+{% block layout_head_meta_tags_description %}{% if store.metaDescription %}{{store.metaDescription}}{% else %}{{ metaDescription }}{% endif %}{% endblock %}
+{% block layout_head_meta_tags_title_og %}{% if store.metaTitle %}{{store.metaTitle}}{% else %}{{ metaKeywords }}{% endif %}{% endblock %}
+
+{% block layout_head_title_inner %}{{ "storelocator.title"|trans|sw_sanitize }}{% endblock %}

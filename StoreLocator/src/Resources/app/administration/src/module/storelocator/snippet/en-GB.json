@@ -1,0 +1,53 @@
+{
+  "storelocator": {
+    "menu": "Store Locator",
+    "title": {
+      "edit": "Edit Store",
+      "add": "Add New Store",
+      "list": "Manage Stores",
+      "general": "General",
+      "address": "Address",
+      "contact": "Contact",
+      "workingHours": "Working Hours",
+      "media": "Media"
+    },
+    "field": {
+      "active": "Status",
+      "title": "Store Title",
+      "address": "Address",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "url": "Store Url",
+      "logo": "Store Icon",
+      "store": "Store",
+      "working": "Schedule",
+      "start": "Open Time",
+      "end": "Close Time"
+    },
+    "message": {
+      "validation-error": "Please fill in all required fields.",
+      "latitude-validation-error": "Range of Latitude is from -90 to 90",
+      "longitude-validation-error": "Range of Longitude is from -180 to 179",
+      "validation-add-success": "Store Added Successfully",
+      "validation-update-success": "Store Updated Successfully"
+    },
+    "buttons": {
+      "save": "Save",
+      "update": "Update",
+      "cancel": "Cancel",
+      "new": "Add New",
+      "edit": "Edit"
+    },
+    "detail": {
+      "direction": "Get Direction",
+      "parkingAvailable": "Parking Availability",
+      "atm": "ATM",
+      "newArrivals": "New Arrivals",
+      "brands": "Brands",
+      "brandsPlaceHolder": "Select Brands",
+      "paymentMethod" : "Payment Methods",
+      "paymentMethodPlaceHolder": "Select Available Payment Methods",
+      "description": "Description"
+    }
+  }
+}

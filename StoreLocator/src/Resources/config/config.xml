@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/master/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>General Settings</title>
+        <title lang="de-DE">Allgemeine Einstellungen</title>
+        <input-field type="password">
+            <name>token</name>
+            <label>Google Api Token</label>
+            <label lang="de-DE">Google Api Token</label>
+            <copyable>true</copyable>
+        </input-field>
+        <input-field type="int">
+            <name>limit</name>
+            <label>Limit</label>
+            <label lang="de-DE">Limit</label>
+            <defaultValue>5</defaultValue>
+        </input-field>
+        <input-field type="int">
+            <name>zoom</name>
+            <label>Zoom</label>
+            <label lang="de-DE">Zoomen</label>
+            <defaultValue>10</defaultValue>
+        </input-field>
+        <input-field type="single-select">
+            <name>unit</name>
+            <label>Distance Units</label>
+            <label lang="de-DE">Distanzeinheiten</label>
+            <options>
+                <option>
+                    <id>km</id>
+                    <name>Kilometer</name>
+                    <name lang="de-DE">NEIN</name>
+                </option>
+                <option>
+                    <id>mi</id>
+                    <name>Miles</name>
+                    <name lang="de-DE">Miles</name>
+                </option>
+            </options>
+            <defaultValue>km</defaultValue>
+        </input-field>
+        <input-field type="single-select">
+            <name>header</name>
+            <label>Add Icon in Header</label>
+            <label lang="de-DE">Symbol in der Kopfzeile hinzufügen</label>
+            <options>
+                <option>
+                    <id>no</id>
+                    <name>No</name>
+                    <name lang="de-DE">NEIN</name>
+                </option>
+                <option>
+                    <id>yes</id>
+                    <name>Yes</name>
+                    <name lang="de-DE">Ja</name>
+                </option>
+            </options>
+            <defaultValue>no</defaultValue>
+        </input-field>
+
+        <input-field type="single-select">
+            <name>detailPage</name>
+            <label>Enable Detail Page</label>
+            <label lang="de-DE">Detailseite aktivieren</label>
+            <options>
+                <option>
+                    <id>no</id>
+                    <name>No</name>
+                    <name lang="de-DE">NEIN</name>
+                </option>
+                <option>
+                    <id>yes</id>
+                    <name>Yes</name>
+                    <name lang="de-DE">Ja</name>
+                </option>
+            </options>
+            <defaultValue>yes</defaultValue>
+        </input-field>
+    </card>
+</config>
