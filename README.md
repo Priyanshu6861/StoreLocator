@@ -4,6 +4,9 @@ A professional, feature-rich Store Locator plugin for Shopware 6 with Google Map
 
 ## Features
 
+![Store Locator - Detail View and Configuration](docs/images/image.png)
+
+
 ### Core Functionality
 - **Interactive Google Maps Integration** - Display all store locations on an interactive map
 - **Location Search** - Search stores by address, city, or current location
