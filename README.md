@@ -1,5 +1,14 @@
 # Store Locator Plugin for Shopware 6
 
+<p align="left">
+  <img src="https://img.shields.io/badge/Shopware-6.6%20%7C%206.7-189EFF?style=for-the-badge&logo=shopware&logoColor=white" alt="Shopware" />
+  <img src="https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP" />
+  <img src="https://img.shields.io/badge/Google_Maps_API-4285F4?style=for-the-badge&logo=googlemaps&logoColor=white" alt="Google Maps" />
+  <img src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge" alt="Status" />
+  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=for-the-badge" alt="Version" />
+</p>
+
 A professional, feature-rich Store Locator plugin for Shopware 6 with Google Maps integration, enabling customers to easily find physical store locations.
 
 ## Features
